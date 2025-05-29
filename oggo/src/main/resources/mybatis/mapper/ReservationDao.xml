@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.oggo.dao.IReservationDao">
+	<select id="getList"
+		resultType="com.example.oggo.dto.ReservationDTO">
+		select * from reservations
+	</select>
+
+	<select id="getMyList"
+		resultType="com.example.oggo.dto.ReservationDTO">
+		select * from reservations where user_id=#{user_id}
+	</select>
+
+	<select id="getOne"
+		resultType="com.example.oggo.dto.ReservationDTO">
+		select * from reservations where
+		reservation_id=#{reservation_id}
+	</select>
+
+	<insert id="rwrite">
+		INSERT INTO reservations (user_id, product_id,
+		reservation_date, num_people, total_price, status)
+		VALUES
+		(#{r.user_id}, #{r.product_id}, SYSDATE, #{r.num_people},
+		#{r.total_price}, '입금 확인중')
+	</insert>
+
+	<delete id="rdelete">
+		delete from reservations where
+		reservation_id=#{reservation_id}
+	</delete>
+
+	<!--추가 -->
+	<select id="selectReservation"
+		resultType="com.example.oggo.dto.ReservationDTO">
+		SELECT * FROM reservations WHERE status = '입금 확인중'
+	</select>
+
+	<!-- 상태를 수정하는 쿼리 -->
+	<update id="updateResStatus">
+		UPDATE reservations SET status = '입금완료' WHERE
+		reservation_id = #{res_id}
+	</update>
+	<select id="selectAllReservation"
+		resultType="com.example.oggo.dto.ReservationDTO">
+		SELECT * FROM reservations
+	</select>
+
+
+
+
+</mapper>

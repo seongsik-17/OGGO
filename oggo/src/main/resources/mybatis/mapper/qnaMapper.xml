@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.oggo.dao.IQnaDao">
+	<!-- QnA 목록 조회 -->
+	<select id="QnaList">
+		SELECT * FROM qna ORDER BY created_at DESC
+	</select>
+
+	<!-- QnA 상세 조회 -->
+	<select id="QnaDetail">
+		SELECT * FROM qna WHERE qna_id = #{id}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="increaseViews" parameterType="int">
+		UPDATE qna
+		SET views =
+		views + 1
+		WHERE qna_id = #{id}
+	</update>
+
+	<!-- QnA 게시물 등록 -->
+	<insert id="regQna">
+		INSERT INTO qna
+		(qna_id, user_id, title, content,
+		created_at)
+		VALUES
+		(qna_seq.NEXTVAL, #{dto.user_id}, #{dto.title},
+		#{dto.content}, SYSDATE)
+	</insert>
+
+	<!-- QnA 게시물 삭제 -->
+	<delete id="deleteQna">
+		DELETE FROM qna
+		WHERE qna_id = #{id}
+	</delete>
+
+	<!-- QnA 답변 등록 -->
+	<update id="regAnswer">
+		UPDATE qna
+		SET answer = #{answer}, is_answered = 'T',
+		answered_at = SYSDATE
+		WHERE qna_id = #{id}
+	</update>
+
+	<!-- QnA 검색 -->
+	<select id="QnaSearch">
+		SELECT *
+		FROM qna
+		WHERE
+		title LIKE '%' || #{keyword} ||
+		'%'
+		OR content LIKE '%' || #{keyword} || '%'
+	</select>
+
+	<!-- QnA 자동완성 -->
+	<select id="autocomplete" resultType="String">
+		SELECT title FROM
+		qna
+		WHERE
+		title LIKE '%' || #{keyword} || '%'
+		ORDER BY views
+		DESC
+	</select>
+
+	<!-- 조회수 100 이상인 QnA 목록 (FAQ용) -->
+	<select id="selectFaqList"
+		resultType="com.example.oggo.dto.QnaDTO"> 
+		SELECT * FROM qna WHERE views >=100 
+		AND is_answered = 'T'
+		ORDER BY views DESC
+	</select>
+
+
+
+
+	<!-- 추가 -->
+	<select id="selectQna" resultType="com.example.oggo.dto.QnaDTO">
+		SELECT * FROM qna WHERE
+		is_answered = 'F' ORDER BY created_at
+	</select>
+
+	<select id="selectForbiddenWords"
+		resultType="com.example.oggo.dto.QnaDTO">
+		SELECT *
+		FROM qna
+		WHERE EXISTS (
+		SELECT 1
+		FROM forbidden_words
+		WHERE INSTR(qna.content, forbidden_words.word) > 0
+		)
+	</select>
+	
+	<!--QnA 답변 달기 -->
+	<update id="updateQnA_Ans">
+		UPDATE qna SET answer = #{qna.answer}, answered_at = SYSDATE, is_answered =
+		'T' WHERE qna_id = #{qna.qna_id}
+	</update>
+
+
+
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.oggo.dao.IProductDao">
+	<select id="getList"
+		resultType="com.example.oggo.dto.ProductDTO">
+		select * from travel_products
+	</select>
+
+	<select id="getBest"
+		resultType="com.example.oggo.dto.ProductDTO">
+		SELECT *
+		FROM (
+		SELECT
+		a.*,
+		COUNT(b.reservation_id) AS
+		reservation_count
+		FROM
+		travel_products a
+		JOIN
+		reservations b ON
+		a.product_id = b.product_id
+		WHERE
+		TRUNC(b.reservation_date, 'IW') =
+		TRUNC(SYSDATE, 'IW')
+		GROUP BY
+		a.product_id, a.title, a.description,
+		a.region, a.price,
+		a.start_date, a.end_date, a.total_seats,
+		a.min_seats,
+		a.left_seats, a.image_url, a.created_at, a.tag, a.status,
+		a.views
+		ORDER BY
+		reservation_count DESC
+		)
+		fetch first 4 rows only
+	</select>
+
+	<select id="getRegion"
+		resultType="com.example.oggo.dto.ProductDTO">
+		select * from travel_products where region like '%' || #{region} || '%'
+	</select>
+
+	<select id="getOne" resultType="com.example.oggo.dto.ProductDTO">
+		select * from travel_products
+		where product_id=#{product_id}
+	</select>
+
+	<select id="psearch"
+		resultType="com.example.oggo.dto.ProductDTO">
+		SELECT * FROM travel_products WHERE
+		title LIKE '%' || #{keyword} || '%'
+		OR description LIKE '%' || #{keyword} || '%'
+		OR region LIKE '%' || #{keyword} || '%'
+		OR tag LIKE '%' || #{keyword} || '%'
+	</select>
+
+	<insert id="pwrite">
+		insert into travel_products (
+		product_id, title,
+		description, region, price, start_date, end_date,
+		total_seats,
+		min_seats, image_url, created_at, status
+		) values
+		(#{p.product_id},#{p.title},#{p.description},
+		#{p.region},#{p.price},TO_DATE(#{p.start_date}, 'YYYY-MM-DD'),
+		TO_DATE(#{p.end_date}, 'YYYY-MM-DD'),#{p.total_seats},#{p.min_seats},
+		#{p.image_url},sysdate,#{p.status})
+	</insert>
+
+	<delete id="pdelete">
+		delete from travel_products where
+		product_id=#{product_id}
+	</delete>
+
+	<update id="pview">
+		update travel_products set views=views+1 where
+		product_id=#{product_id}
+	</update>
+
+	<update id="pupdate">
+		update travel_products set
+		left_seats=left_seats-#{left_seats}, status =#{status} where
+		product_id=#{product_id}
+	</update>
+
+	<select id="autocomplete" resultType="String">
+		SELECT title FROM
+		travel_products
+		WHERE title LIKE '%' || #{keyword} || '%'
+		ORDER BY views
+		DESC
+	</select>
+
+
+	<select id="pkeyword" resultType="String">
+		SELECT region
+		FROM
+		travel_products
+		ORDER BY views DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+
+	<select id="phashtag" resultType="String">
+		SELECT tag_keyword, COUNT(*) AS
+		count
+		FROM (
+		SELECT REGEXP_SUBSTR(tag, '[^#]+', 1, LEVEL) AS tag_keyword
+		FROM (
+		SELECT tag, product_id
+		FROM travel_products
+		ORDER BY views DESC
+		FETCH FIRST 5 ROWS ONLY
+		)
+		CONNECT BY REGEXP_SUBSTR(tag, '[^#]+', 1,
+		LEVEL) IS NOT NULL
+		AND PRIOR dbms_random.value IS NOT NULL
+		AND PRIOR
+		product_id = product_id
+		)
+		GROUP BY tag_keyword
+		ORDER BY count DESC
+		FETCH
+		FIRST 5 ROWS ONLY
+	</select>
+
+</mapper>

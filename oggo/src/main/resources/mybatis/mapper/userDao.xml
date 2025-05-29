@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.oggo.dao.IUserDao">
+
+	 <select id="selectUserList" resultType="com.example.oggo.dto.UserDTO">
+	 	SELECT * FROM t_user
+	 </select>
+	 
+	 <select id="serchUserInfo" resultType="com.example.oggo.dto.UserDTO">
+	 SELECT * 
+	 FROM t_user
+	 WHERE name = #{user.name}
+	 </select>
+	 
+	 <select id="login">
+	 SELECT COUNT(*) FROM t_user WHERE user_id=#{log.user_id} AND password=#{log.password}
+	 </select>
+	 
+	 <update id="updateLastLogin">
+	 UPDATE t_user SET lastLogin=SYSDATE WHERE user_id=#{log.user_id}
+	 </update>
+	 
+	 <select id="getUser">
+	 SELECT * FROM t_user WHERE user_id=#{id} AND password=#{pw}
+	 </select>
+	 
+	<insert id="regist">
+	INSERT INTO t_user VALUES ( #{u.user_id},#{u.password}, #{u.salt}, #{u.name}, #{u.email}, #{u.phone}, #{u.birth_date}, #{u.gender}, #{u.address}, SYSDATE, 'USER', SYSDATE, #{u.mbti}, #{u.personalities}, #{u.drinking_level})
+	</insert>
+	
+	<select id="checkId">
+	SELECT COUNT(*) FROM t_user WHERE user_id = #{id}
+	</select>
+	
+	<select id="getSaltAndPassword">
+	SELECT salt, password FROM t_user WHERE user_id=#{id}
+	</select>
+	
+	<update id="update">
+	UPDATE t_user SET password=#{u.password}, salt=#{u.salt}, name=#{u.name}, email=#{u.email}, phone=#{u.phone}, birth_date=#{u.birth_date}, gender=#{u.gender}, address=#{u.address}, lastLogin=SYSDATE, mbti=#{u.mbti}, personalities=#{u.personalities}, drinking_level=#{u.drinking_level} WHERE user_id=#{u.user_id}
+	</update>
+	
+	<delete id="delete">
+	DELETE t_user WHERE user_id=#{id}
+	</delete>
+
+	<!-- 예약현황(후기 작성 버튼 비활성화 추가) -->
+	<select id="getReservationList">
+	  SELECT 
+	    p.product_id, 
+	    p.title, 
+	    p.region, 
+	    p.start_date, 
+	    p.end_date, 
+	    r.status,
+	    CASE 
+	      WHEN EXISTS (
+	        SELECT 1 FROM reviews rev 
+	        WHERE rev.user_id = r.user_id AND rev.product_id = r.product_id
+	      ) THEN 1
+	      ELSE 0
+	    END AS review_written
+	  FROM travel_products p
+	  JOIN reservations r ON p.product_id = r.product_id
+	  WHERE r.user_id = #{user_id}
+	</select>
+	<!-- 찜한 리스트 -->
+	<select id="getWishList">
+	SELECT * FROM user_wishlist WHERE user_id=#{user_id} 
+	</select>
+	<!-- 내가 작성한 리뷰 -->
+	<select id="getReviewList">
+	SELECT * FROM reviews WHERE user_id=#{user_id} 
+	</select>
+	<!-- 내가 작성한 qna -->
+	<select id="getQnaList"> 
+	SELECT * FROM qna WHERE user_id=#{user_id}
+	 </select>
+	<!-- 찜하기 -->
+	<select id="addWish"> 
+	INSERT INTO user_wishlist VALUES(wish_seq.NEXTVAL, #{user_id}, #{product_id}, SYSDATE) 
+	</select>
+	<!-- 찜한 목록 삭제 -->
+	<delete id="delWish"> 
+	DELETE FROM user_wishlist WHERE wishlist_id=#{wishlist_id} 
+	</delete>
+</mapper>

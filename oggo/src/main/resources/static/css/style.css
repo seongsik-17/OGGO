@@ -1,0 +1,862 @@
+:root {
+  --text-dark: #333;
+  --nav-text: #616161;
+  --nav-bg: #f9f9f9;
+  --nav-hover: #ff6f61;
+  --nav-border: #e4e4e4;
+  --logo-color: #ff6f61;
+  --gray-light: #999;
+  --scrollbar-thumb: #ccc;
+  --product-title: #333;
+  --btn-delete: #ff6f61;
+  --transition: all 0.3s ease-in-out;
+}
+
+/* ========== 전체 페이지 공통 스타일 ========== */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: var(--text-dark);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* ========== 상단 헤더 영역 ========== */
+header {
+  background-color: var(--nav-bg);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-radio {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+  margin-right: 20px;
+  user-select: none;
+  position: relative;
+  padding-left: 40px;
+  font-family: 'Quicksand', 'Comic Sans MS', 'Noto Sans KR', sans-serif;
+}
+
+/* 기본 라디오 버튼 숨기기 */
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* 커스텀 라디오 동그라미 */
+.custom-radio .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 28px;
+  width: 28px;
+  background-color: white;
+  border: 2px solid #ff6f61;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* 체크 되었을 때 내부 원 표시 */
+.custom-radio input[type="radio"]:checked ~ .checkmark {
+  background-color: #ff6f61;
+  border-color: #ff6f61;
+}
+
+/* 체크 되었을 때 내부 작은 원 */
+.custom-radio .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+}
+
+.custom-radio input[type="radio"]:checked ~ .checkmark::after {
+  display: block;
+}
+
+
+  #more {
+    text-align: center; /* 중앙 정렬 */
+    margin-top: 20px;   /* 위쪽 여백 (선택) */
+  }
+
+
+
+
+/* 공통 폰트 */
+.custom-radio, .custom-checkbox {
+  position: relative;
+  padding-left: 38px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  color: #333;
+  font-family: 'Quicksand', 'Comic Sans MS', 'Noto Sans KR', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+/* 숨김 처리 */
+.custom-radio input[type="radio"],
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* 라디오, 체크박스 원형/네모 스타일 */
+.custom-radio .checkmark,
+.custom-checkbox .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 28px;
+  width: 28px;
+  background-color: white;
+  border: 2px solid #ff6f61;
+  border-radius: 50%;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+  box-shadow: 0 0 5px rgba(255,111,97,0.2);
+}
+
+/* 체크박스는 네모로 변경 */
+.custom-checkbox .checkmark {
+  border-radius: 8px;
+}
+
+/* 라디오 체크 되었을 때 배경색과 내부 작은 원 */
+.custom-radio input[type="radio"]:checked ~ .checkmark {
+  background-color: #ff6f61;
+  border-color: #ff6f61;
+}
+
+.custom-radio .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+}
+
+.custom-radio input[type="radio"]:checked ~ .checkmark::after {
+  display: block;
+}
+
+/* 체크박스 체크 되었을 때 배경색과 체크 표시 */
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark {
+  background-color: #ff6f61;
+  border-color: #ff6f61;
+}
+
+.custom-checkbox .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 8px;
+  top: 4px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark::after {
+  display: block;
+}
+
+/* hover 효과 */
+.custom-radio:hover .checkmark,
+.custom-checkbox:hover .checkmark {
+  border-color: #ff8b7a;
+}
+
+/* 줄 바꿈 */
+.checkbox-group br {
+  clear: both;
+  content: "";
+  display: block;
+  margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.logo a {
+  font-family: 'Comic Sans MS', 'Quicksand', cursive;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: var(--logo-color);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.auth-links {
+  margin-top: 30px;
+}
+
+.auth-links a {
+  color: var(--gray-light);
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.auth-links a:hover {
+  color: var(--text-dark);
+  transform: scale(1.1);
+}
+
+/* ========== 네비게이션 바 ========== */
+nav {
+  border-top: 1px solid var(--nav-border);
+  border-bottom: 1px solid var(--nav-border);
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+
+
+
+#autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%; /* input과 동일하게 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+/* 리스트 항목 스타일 */
+.autocomplete-list li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.autocomplete-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  z-index: 999;
+  display: none;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-suggestions ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.search-suggestions a {
+	display: inline-block;
+	margin: 4px;
+	color: #28a745;
+	text-decoration: none;
+}
+
+
+
+
+
+
+  /* 로그인 박스 배경, 그림자, 내부 여백 */
+main.login-wrapper {
+  width: 100%;
+  max-width: 420px;
+  margin: 8% auto;
+  padding: 40px 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(255, 111, 97, 0.25);
+}
+
+
+  main.login-wrapper h1 {
+    color: #ff6f61;
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+    font-weight: 800;
+  }
+
+  /* input 공통 스타일 */
+  main.login-wrapper input[type="text"],
+  main.login-wrapper input[type="password"],
+  main.login-wrapper input[type="email"],
+  main.login-wrapper input[type="date"] {
+    width: 90%;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 2px solid #ff6f61;
+    border-radius: 50px;
+    transition: 0.3s ease-in-out;
+  }
+
+  main.login-wrapper input[type="text"]:focus,
+  main.login-wrapper input[type="password"]:focus {
+    outline: none;
+    border-color: #e55a50;
+    box-shadow: 0 0 8px rgba(255, 111, 97, 0.6);
+  }
+
+  /* submit 버튼 스타일 */
+  main.login-wrapper input[type="submit"] {
+    width: 100%;
+    background-color: #ff6f61;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 14px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+
+  main.login-wrapper input[type="submit"]:hover {
+    background-color: #e55a50;
+    transform: scale(1.05);
+  }
+
+  /* 오류 메시지 */
+  main.login-wrapper p {
+    color: #ff6f61;
+    font-weight: 600;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    min-height: 1.2em;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 140px;
+  flex-wrap: wrap;
+}
+
+nav ul li a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+nav ul li a:hover {
+  transform: translateY(-3px);
+  color: var(--nav-hover);
+}
+
+
+/* ========== 섹션 제목 ========== */
+.section-title {
+    text-align: center;
+    color: #ff6f61;
+    font-family: 'Quicksand', 'Comic Sans MS', 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 2.2em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: var(--logo-color);
+}
+h1 {
+    text-align: center;
+    color: #ff6f61;
+    font-family: 'Quicksand', 'Comic Sans MS', 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 2.2em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: var(--logo-color);
+}
+
+h1 a {
+    text-align: center;
+    color: #ff6f61;
+    font-family: 'Quicksand', 'Comic Sans MS', 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: var(--logo-color);
+}
+
+/* ========== 상품 리스트 ========== */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개 */
+  gap: 20px;
+  justify-items: center;
+  padding: 20px;
+}
+
+
+.product-list::-webkit-scrollbar {
+  height: 10px;
+}
+.product-list::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+.product-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ========== 상품 카드 ========== */
+.product {
+  background-color: white;
+  color: var(--text-dark);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 280px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.product:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.product img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
+.product h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0 6px;
+  text-align: center;
+  color: #333;
+}
+
+.product p {
+  font-size: 15px;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+/* ========== 삭제 버튼 ========== */
+button.delete {
+  background-color: transparent;
+  color: var(--btn-delete);
+  border: 1px solid var(--btn-delete);
+  padding: 7px 10px;
+  font-size: 14px;
+  margin-top: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: 999px;
+}
+
+button.delete:hover {
+  background-color: var(--btn-delete);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ========== QnA 제목 ========== */
+.qna-title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 800;
+  margin: 50px 0;
+  color: var(--text-dark);
+}
+
+/* ========== 글쓰기 버튼 ========== */
+.write-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 50px;
+}
+
+.write-btn {
+  background-color: var(--nav-hover);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin: 20px auto 10px;
+
+}
+
+.write-btn:hover {
+  background-color: #e55a50;
+  transform: scale(1.05);
+}
+
+/* ========== 검색창 ========== */
+.box_search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  gap: 5px;
+}
+
+.input_keyword {
+  padding: 15px 14px;
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  font-size: 14px;
+  width: 280px;
+  transition: var(--transition);
+}
+
+.input_keyword:focus {
+  outline: none;
+  border-color: var(--nav-hover);
+  box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.2);
+}
+
+#reset {
+  color: var(--gray-light);
+  font-size: 20px;
+  transition: var(--transition);
+  margin-left: 1px;
+  cursor: pointer;
+}
+
+#reset:hover {
+  color: var(--text-dark);
+  transform: scale(1.2);
+}
+
+.box_search input[type="submit"] {
+  padding: 10px 15px;
+  font-size: 15px;
+  background-color: var(--nav-hover);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.box_search input[type="submit"]:hover {
+  background-color: #e55a50;
+}
+
+/* ========== QnA 테이블 ========== */
+table {
+  width: 90%;
+  margin: 0 auto 60px;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+thead {
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+}
+
+thead th {
+  padding: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--nav-border);
+}
+
+tbody td {
+  padding: 14px 16px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  color: var(--text-dark);
+}
+
+tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+tbody a {
+  color: var(--nav-hover);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+tbody a:hover {
+  text-decoration: underline;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 320px; /* 검색창 + 자동완성 넓이와 동일하게 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.search-wrapper2 {
+  position: relative;
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+
+
+/* ========== 반응형 ========== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .auth-links {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .auth-links a {
+    margin-left: 0;
+    margin-right: 20px;
+  }
+
+  .board-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn-write {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  table {
+    font-size: 13px;
+    width: 100%;
+  }
+
+  .box_search {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .write-btn {
+    float: none;
+    display: block;
+    margin: 10px auto;
+  }
+  
+.search-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+#autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%; /* input과 동일하게 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+/* 리스트 항목 스타일 */
+.autocomplete-list li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.autocomplete-list li:hover {
+  background-color: #f0f0f0;
+}
+  
+main.login-wrapper input[type="email"],
+main.login-wrapper input[type="password"],
+main.login-wrapper input[type="text"] {
+  width: 90%;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  border: 2px solid #ff6f61;
+  border-radius: 50px;
+  transition: var(--transition);
+}
+
+main.login-wrapper input[type="email"]:focus,
+main.login-wrapper input[type="text"]:focus,
+main.login-wrapper input[type="password"]:focus {
+  outline: none;
+  border-color: #e55a50;
+  box-shadow: 0 0 8px rgba(255, 111, 97, 0.6);
+}
+
+main.login-wrapper .error-message {
+  color: #ff6f61;
+  font-weight: 600;
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  min-height: 1.2em;
+}
+
+
+/* 라디오 버튼 */
+.radio-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.radio-label {
+  position: relative;
+}
+
+.radio-label input[type="radio"] {
+  display: none; /* 기본 radio 숨기기 */
+}
+
+.radio-label .custom-radio {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid var(--nav-hover); /* #ff6f61 */
+  border-radius: 12px; /* 둥근 모서리 네모 */
+  background-color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: var(--transition);
+  min-width: 80px;
+  text-align: center;
+}
+
+.radio-label input[type="radio"]:checked + .custom-radio {
+  background-color: var(--nav-hover);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+
+}

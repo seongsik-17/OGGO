@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.oggo.dao.IReviewDao">
+
+	<insert id="insert">
+		INSERT INTO reviews (review_id, user_id, product_id, rating, title, content, created_at, updated_at, is_public)
+		VALUES (review_seq.NEXTVAL, #{r.user_id}, #{r.product_id}, #{r.rating}, #{r.title}, #{r.content}, SYSDATE, SYSDATE, #{r.is_public})
+	</insert>
+	
+	<select id="detail"> 
+		SELECT * FROM reviews WHERE review_id = #{review_id}
+	</select>
+	
+	<update id="update">
+		UPDATE reviews SET title = #{title}, content = #{content}, rating = #{rating}, updated_at = SYSDATE, is_public = #{is_public} WHERE review_id = #{review_id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM reviews WHERE review_id = #{review_id}
+	</delete>
+	
+	<select id="getList">
+		SELECT r.review_id, r.title, r.user_id, r.content, p.title as travel_title, r.is_public
+		FROM reviews r
+		JOIN travel_products p ON r.product_id = p.product_id
+	</select>
+	
+</mapper>

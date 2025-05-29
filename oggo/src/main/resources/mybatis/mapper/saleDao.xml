@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.oggo.dao.IStasticsDao">
+	<select id="totalSalse"
+		resultType="com.example.oggo.dto.TotalSalseDTO">
+		SELECT tp.title, SUM(r.total_price) AS total_sale
+		FROM
+		travel_products tp
+		JOIN reservations r ON tp.product_id = r.product_id
+		GROUP BY tp.title
+	</select>
+	<select id="selectMonthlyProductSales" resultType="com.example.oggo.dto.MonthlyStatisticsDTO">
+		SELECT tp.title, TO_CHAR(r.reservation_date, 'MM') AS
+		month, SUM(r.total_price) AS total_sales
+		FROM travel_products tp
+		JOIN reservations r ON tp.product_id = r.product_id
+		GROUP BY tp.title, TO_CHAR(r.reservation_date, 'MM')
+		ORDER BY tp.title, month
+	</select>
+	<!-- 추가 -->
+	<select id="selectMonthlySalesByYearAndMonth" resultType="com.example.oggo.dto.MonthlyStatisticsDTO">
+		SELECT
+		tp.title AS title,
+		TO_CHAR(r.reservation_date, 'MM') AS month,
+		SUM(r.total_price) AS total_sales
+		FROM
+		travel_products tp
+		JOIN reservations r ON tp.product_id = r.product_id
+		WHERE
+		TO_CHAR(r.reservation_date, 'YYYY') = #{year}
+		AND TO_CHAR(r.reservation_date, 'MM') = #{month}
+		GROUP BY
+		tp.title, TO_CHAR(r.reservation_date, 'MM')
+	</select>
+</mapper>
