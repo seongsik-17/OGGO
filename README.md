@@ -5,6 +5,8 @@
 
 PPT: https://docs.google.com/presentation/d/1vicd2JI_HV7yJ8tI90K5VFAnn4lZ44YZ/edit?usp=sharing&ouid=103656476575692687607&rtpof=true&sd=true
 
+업무분장표: https://docs.google.com/spreadsheets/d/1YrEMrZKyFPtsMr_5ESlqyWjY_eqCMgedgRq8Y3eHgck/edit?usp=sharing
+
 ## 프로젝트 기간
 2025년 5월 21일 ~ 5월 27일(7일간)
 
