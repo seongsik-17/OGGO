@@ -3,6 +3,8 @@
 여행을 좋아하는 "오지 마니아"를 위한 맞춤형 여행사 웹 플랫폼
 **OGGO**는 사용자 맞춤형 여행 상품 추천, 동행자 모집, Q&A 커뮤니티 등 다양한 기능을 제공하는 웹 기반 여행사 플랫폼입니다. 사용자 경험(UX)을 중심으로 예약의 편의성, 안전성, 탐색 효율성을 높이기 위해 설계되었습니다.
 
+PPT: https://docs.google.com/presentation/d/1vicd2JI_HV7yJ8tI90K5VFAnn4lZ44YZ/edit?usp=sharing&ouid=103656476575692687607&rtpof=true&sd=true
+
 ## 프로젝트 기간
 2025년 5월 21일 ~ 5월 27일(7일간)
 
